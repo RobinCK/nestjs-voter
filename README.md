@@ -33,7 +33,7 @@ npm install nestjs-voter
 
 ```typescript
 import { Module } from '@nestjs/common';
-import { VoterModule } from '@your-org/nestjs-voter';
+import { VoterModule } from 'nestjs-voter';
 
 @Module({
   imports: [VoterModule],
@@ -45,7 +45,7 @@ export class AppModule {}
 
 ```typescript
 import { Injectable, Logger } from '@nestjs/common';
-import { BaseVoter, VoterContext } from '@your-org/nestjs-voter';
+import { BaseVoter, VoterContext } from 'nestjs-voter';
 
 interface User {
   id: string;
@@ -75,7 +75,7 @@ export class UserVoter extends BaseVoter<User> {
 
 ```typescript
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { PreAuthVoterMethod, PostAuthVoter } from '@your-org/nestjs-voter';
+import { PreAuthVoterMethod, PostAuthVoter } from 'nestjs-voter';
 import { UserVoter } from './user.voter';
 
 @Resolver('User')
@@ -204,7 +204,7 @@ import {
   PreAuthVoter, 
   PreAuthVoterMethod, 
   PostAuthVoter 
-} from '@your-org/nestjs-voter';
+} from 'nestjs-voter';
 import { UserVoter } from './user.voter';
 
 @Resolver('User')
@@ -256,7 +256,7 @@ export class UserResolver {
 
 ```typescript
 import { Controller, Get, Post, Put, Param, Body } from '@nestjs/common';
-import { PreAuthVoterMethod, PostAuthVoter } from '@your-org/nestjs-voter';
+import { PreAuthVoterMethod, PostAuthVoter } from 'nestjs-voter';
 import { UserVoter } from './user.voter';
 
 @Controller('users')
@@ -294,7 +294,7 @@ export class UserController {
 
 ```typescript
 import { Injectable, Logger } from '@nestjs/common';
-import { BaseVoter, VoterContext } from '@your-org/nestjs-voter';
+import { BaseVoter, VoterContext } from 'nestjs-voter';
 
 interface PostDto {
   id: string;
@@ -587,7 +587,7 @@ private isWithinEditTime(createdAt: Date): boolean {
 import { Test } from '@nestjs/testing';
 import { PostVoter } from './post.voter';
 import { PostService } from './post.service';
-import { VoterContext } from '@your-org/nestjs-voter';
+import { VoterContext } from 'nestjs-voter';
 
 describe('PostVoter', () => {
   let voter: PostVoter;
