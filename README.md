@@ -765,10 +765,10 @@ abstract class BaseVoter<TData = any> implements IVoter<TData> {
 interface VoterContext<TUser = any, TData = any, TArgs = any> {
   data: TData;
   args: TArgs;
-  auth: any;
+  auth: TUser;
   context: ExecutionContext;
   methodName: string;
-  operationType: 'query' | 'mutation' | 'http';
+  operationType: OperationType
 }
 ```
 
