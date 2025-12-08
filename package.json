@@ -1,6 +1,6 @@
 {
   "name": "nestjs-voter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Type-safe voter authorization module for NestJS with fine-grained access control through pre and post-authorization checks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -36,11 +36,16 @@
   "homepage": "https://github.com/RobinCK/nestjs-voter#readme",
   "license": "MIT",
   "peerDependencies": {
-    "@nestjs/common": "^10.0.0",
-    "@nestjs/core": "^10.0.0",
-    "@nestjs/graphql": "^12.0.0",
-    "rxjs": "^7.0.0",
-    "reflect-metadata": "^0.1.13"
+    "@nestjs/common": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
+    "@nestjs/core": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
+    "@nestjs/graphql": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0",
+    "rxjs": "^6.0.0 || ^7.0.0",
+    "reflect-metadata": "^0.1.13 || ^0.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/graphql": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@nestjs/common": "^10.0.0",
