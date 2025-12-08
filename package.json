@@ -1,6 +1,6 @@
 {
   "name": "nestjs-voter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Type-safe voter authorization module for NestJS with fine-grained access control through pre and post-authorization checks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

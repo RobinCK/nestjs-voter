@@ -1,6 +1,5 @@
 import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
 import { ModuleRef, Reflector } from '@nestjs/core';
-import { GqlExecutionContext } from '@nestjs/graphql';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { PRE_AUTH_VOTER_METADATA, POST_AUTH_VOTER_METADATA } from '../constants/voter.constants';
@@ -26,6 +25,19 @@ export class VoterInterceptor implements NestInterceptor {
     private readonly reflector: Reflector,
     private readonly moduleRef: ModuleRef,
   ) {}
+
+  private getGqlExecutionContext(): any {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { GqlExecutionContext } = require('@nestjs/graphql');
+      return GqlExecutionContext;
+    } catch (error) {
+      throw new Error(
+        'GraphQL context detected but @nestjs/graphql is not installed. ' +
+        'Please install it with: npm install @nestjs/graphql'
+      );
+    }
+  }
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const preAuthMetadata = this.reflector.get<PreAuthVoterMetadata[]>(PRE_AUTH_VOTER_METADATA, context.getHandler());
@@ -150,6 +162,7 @@ export class VoterInterceptor implements NestInterceptor {
       return context.switchToHttp().getRequest<RequestWithUser>();
     }
 
+    const GqlExecutionContext = this.getGqlExecutionContext();
     const gqlContext = GqlExecutionContext.create(context).getContext();
     return gqlContext.req as RequestWithUser;
   }
@@ -166,6 +179,7 @@ export class VoterInterceptor implements NestInterceptor {
       };
     }
 
+    const GqlExecutionContext = this.getGqlExecutionContext();
     return GqlExecutionContext.create(context).getArgs();
   }
 
@@ -182,11 +196,12 @@ export class VoterInterceptor implements NestInterceptor {
       };
     }
 
+    const GqlExecutionContext = this.getGqlExecutionContext();
     const gqlContext = GqlExecutionContext.create(context);
-    const info = gqlContext.getInfo<{
+    const info = (gqlContext.getInfo as any)() as {
       fieldName: string;
       operation: { operation: string };
-    }>();
+    };
 
     const operationType = info.operation.operation as OperationType;
 
